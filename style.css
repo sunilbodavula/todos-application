@@ -1,0 +1,78 @@
+body {
+    font-family: "Roboto", sans-serif;
+
+}
+
+.bg-container {
+    background-color: #E7F9FE;
+    height: 100vh;
+}
+
+.todos-heading {
+    text-align: center;
+    font-size: 40px;
+    color: #011318;
+    font-weight: 600;
+}
+
+.create-task-heading {
+    font-size: 24px;
+    color: #011318;
+}
+
+.create-task-input {
+    width: 80%;
+    height: 40px;
+    border: 1px solid #303E46;
+    border-radius: 5px;
+    margin-bottom: 12px;
+    padding-left: 12px;
+}
+.add-task-button {
+    width: 120px;
+    height: 40px;
+    font-weight: bold;
+}
+.my-tasks-card {
+    margin-top: 20px;
+}
+
+.my-tasks-heading{
+    font-size: 24px;
+    color: #011318;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+.checkbox-input {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+.input-task-card {
+    background-color: #6BEFE7;
+    border-left: 6px solid  #0B6A64;
+    border-radius: 8px;
+    height: 40px;
+    width: 100%;
+    padding-left: 10px;
+    padding-top:6px;
+    margin-left:12px;
+}
+.task-name {
+   font-size: 16px;
+   color: #021716;
+   font-weight: 500;
+   cursor: pointer;
+}
+.del-icon-container {
+    margin-left: auto;
+    margin-right: 12px;
+    cursor: pointer;
+}
+.del-icon {
+    color: #011318;
+    font-size: 18px;
+    margin-top: 4px;
+}
