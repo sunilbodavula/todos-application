@@ -9,29 +9,22 @@
     <script src="https://kit.fontawesome.com/f81c3ef118.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="bg-container pt-3 pb-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="todos-heading">Todos</h1>
-                    <div class="create-todos-card d-flex flex-column">
-                        <h1 class="create-task-heading">Create Task</h1>
-                        <input type="text" placeholder="Enter a task..." class="create-task-input" />
-                        <button class="add-task-button btn btn-primary">Add</button>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="my-tasks-card">
-                        <h1 class="my-tasks-heading">My Tasks</h1>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <ul id="tasksContainer">
-                        
-                    </ul>
-                </div>
-            </div>
+    <div class="bg-container">
+        <div class="heading-container">
+            <h1 class="todos-heading">Todos</h1>
         </div>
+        <div class="input-container">
+            <h1 class="heading">Create <span class="span-elements">Task</span></h1>
+            <input class="input-task" placeholder="Enter your task..." />
+            <button class="add-task-button">Add</button>
+        </div>
+        <div class="tasks-container mt-2">
+            <h1 class="heading">My <span class="span-elements">Tasks</span></h1>
+            <ul id="tasksListContainer">
+
+            </ul>
+        </div>
+
            
     </div>
     <script src="script.js"></script>
