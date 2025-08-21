@@ -1,23 +1,27 @@
 body {
     font-family: "Roboto", sans-serif;
-
 }
 
-.bg-container {
-    background-color: #e1f4f9;
-    padding: 20px;
-    height: 100vh;
+.heading-container {
+    background: linear-gradient(to right, #ffffff, #b8faef);
 }
 
 .todos-heading {
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
     color: #011318;
-    font-weight: 600;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.bg-container {
+    background-color: #b8faef;
+    padding: 8px;
+    height: 100vh;
 }
 
 .heading {
-    font-size: 24px;
+    font-size: 20px;
     color: #011318;
     font-weight: 700;
 }
@@ -28,17 +32,17 @@ body {
 
 .input-task {
     width: 100%;
-    height: 40px;
+    height: 36px;
     border: 1px solid #303E46;
     border-radius: 5px;
     margin-bottom: 12px;
     padding-left: 12px;
 }
 .add-task-button {
-    width: 120px;
-    height: 40px;
+    width: 100px;
+    height: 36px;
     font-weight: 500;
-    background-color: #58f2e8;
+    background-color: #82a7fd;
     border-radius: 12px;
     border: 0px;
     padding-bottom: 4px;
@@ -52,22 +56,22 @@ ul {
     padding: 0px;
 }
 .checkbox-input {
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
     cursor: pointer;
 }
 .input-task-card {
-    background-color: #6BEFE7;
+    background-color: #82eefd;
     border-left: 6px solid  #0B6A64;
     border-radius: 8px;
-    height: 40px;
+    height: 32px;
     width: 100%;
-    padding-left: 10px;
-    padding-top:6px;
-    margin-left:12px;
+    padding-left: 8px;
+    padding-top: 4px;
+    margin-left:8px;
 }
 .task-name {
-   font-size: 16px;
+   font-size: 14px;
    color: #021716;
    font-weight: 500;
    cursor: pointer;
@@ -80,5 +84,56 @@ ul {
 .del-icon {
     color: #011318;
     font-size: 18px;
-    margin-top: 4px;
+}
+
+.checked {
+    text-decoration: line-through;
+    font-weight: 400;
+}
+
+.checked-container {
+    background-color: #70f5b9;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: #151515;
+  opacity: 0.9;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
+  width: 300px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.popup h1 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.popup p {
+  font-size: 16px;
+  margin: 10px;
+}
+
+.popup button {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  height: 36px;
+  width: 80px;
+  cursor: pointer;
+  font-size: 14px;
 }

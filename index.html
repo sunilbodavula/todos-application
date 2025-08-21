@@ -10,14 +10,14 @@
     <script src="https://kit.fontawesome.com/f81c3ef118.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class="heading-container">
+        <h1 class="todos-heading">Todos</h1>
+    </div>
     <div class="bg-container">
-        <div class="heading-container">
-            <h1 class="todos-heading">Todos</h1>
-        </div>
         <div class="input-container">
             <h1 class="heading">Create <span class="span-elements">Task</span></h1>
-            <input class="input-task" placeholder="Enter your task..." />
-            <button class="add-task-button">Add</button>
+            <input class="input-task" id="userInputTask" placeholder="Enter your task..." />
+            <button class="add-task-button" id="addTaskButton">Add</button>
         </div>
         <div class="tasks-container mt-2">
             <h1 class="heading">My <span class="span-elements">Tasks</span></h1>
@@ -25,9 +25,14 @@
 
             </ul>
         </div>
-
-           
     </div>
+    <div class="overlay" id="customAlert">
+    <div class="popup">
+      <h1>⚠️ Warning</h1>
+      <p id="alertMessage">Input Task cannot be EMPTY!</p>
+      <button onclick="closeAlert()">OK</button>
+    </div>
+  </div>
     <script src="script.js"></script>
     
 </body>
