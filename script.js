@@ -1,21 +1,21 @@
 let tasksContainerElement = document.getElementById('tasksListContainer');
 let userInputTaskElement = document.getElementById("userInputTask");
 let addTaskButtonElement = document.getElementById('addTaskButton');
+let saveTasksButtonElement = document.getElementById('saveTasksButton');
 
-let todoList = [
-  {
-    text: "Learn HTML",
-    id: 1
-  },
-  {
-    text: "Learn CSS",
-    id: 2
-  },
-  {
-    text: "Learn JavaScript",
-    id: 3
+function getLocalStorageTodos(){
+  let todoList = JSON.parse(localStorage.getItem("todos"));
+  if (todoList === null){
+    saveTasksButtonElement.style.display = "none";
+    return [];
+    
+  }else{
+    saveTasksButtonElement.style.display = "block";
+    return todoList;
   }
-];
+}
+
+let todoList = getLocalStorageTodos();
 
 let createNewTask = function(todo){
     let taskElement = document.createElement('li');
@@ -77,6 +77,7 @@ addTaskButtonElement.onclick = function() {
     todoList.push(newTodo);
     createNewTask(newTodo);
     userInputTaskElement.value = ""; 
+    saveTasksButtonElement.style.display = "inline";
 
 }
 
@@ -84,7 +85,11 @@ function closeAlert(){
   document.getElementById("customAlert").style.display = "none";
 }
 
+saveTasksButtonElement.onclick = function() {
+  localStorage.setItem("todos", JSON.stringify(todoList));
+}
 
+//console.log(storedTodos);
 
 for (todo of todoList) {
     createNewTask(todo);

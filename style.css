@@ -43,9 +43,11 @@ body {
     height: 36px;
     font-weight: 500;
     background-color: #82a7fd;
-    border-radius: 12px;
+    color: #ffffff;
+    border-radius: 6px;
     border: 0px;
-    padding-bottom: 4px;
+    padding-bottom: 3px;
+    margin-left: auto;
 }
 .my-tasks-card {
     margin-top: 20px;
@@ -56,19 +58,19 @@ ul {
     padding: 0px;
 }
 .checkbox-input {
-    height: 16px;
-    width: 16px;
+    height: 18px;
+    width: 18px;
     cursor: pointer;
 }
 .input-task-card {
     background-color: #82eefd;
     border-left: 6px solid  #0B6A64;
     border-radius: 8px;
-    height: 32px;
+    height: 40px;
     width: 100%;
     padding-left: 8px;
-    padding-top: 4px;
-    margin-left:8px;
+    padding-top: 8px;
+    margin-left:12px;
 }
 .task-name {
    font-size: 14px;
@@ -101,14 +103,14 @@ ul {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background: #151515;
-  opacity: 0.9;
+  background: #000000;
+  opacity: 1;
   justify-content: center;
   align-items: center;
 }
 
 .popup {
-  background: white;
+  background: #ffffff;
   padding: 8px;
   border-radius: 12px;
   width: 300px;
