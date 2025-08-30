@@ -17,48 +17,8 @@ function getLocalStorageTodos(){
 
 let todoList = getLocalStorageTodos();
 
-let createNewTask = function(todo){
-    let taskElement = document.createElement('li');
-    let checkboxId= "checkbox-" + todo.id;
-
-    let taskContainer = document.createElement('div');
-    taskContainer.classList.add("d-flex", "flex-row", "align-items-center", "mb-2");
-    taskElement.appendChild(taskContainer);
-
-    let checkboxInput = document.createElement('input');
-    checkboxInput.type = 'checkbox'; 
-    checkboxInput.classList.add("checkbox-input");
-    checkboxInput.id = checkboxId;
-    taskContainer.appendChild(checkboxInput);
-
-    let inputTaskCard = document.createElement('div');
-    inputTaskCard.classList.add("input-task-card", "d-flex", "flex-row");
-    taskContainer.appendChild(inputTaskCard);
-
-    let taskName = document.createElement('label');
-    taskName.setAttribute('for',checkboxId); 
-    taskName.classList.add("task-name");
-    taskName.textContent = todo.text;
-    inputTaskCard.appendChild(taskName);
-
-    checkboxInput.onclick = function() {
-    taskName.classList.toggle("checked", checkboxInput.checked);
-    inputTaskCard.classList.toggle("checked-container", checkboxInput.checked)
-};
-
-    let delIconContainer = document.createElement('div');
-    delIconContainer.classList.add("del-icon-container", "ml-auto");
-    let delIcon = document.createElement('i');
-    delIcon.classList.add("fa-solid", "fa-circle-minus", "del-icon");   
-    delIconContainer.appendChild(delIcon);
-    inputTaskCard.appendChild(delIconContainer);
-
-    delIconContainer.onclick = function() {
-        tasksContainerElement.removeChild(taskElement);
-    }
-
-    tasksContainerElement.appendChild(taskElement);
-
+saveTasksButtonElement.onclick = function() {
+  localStorage.setItem("todos", JSON.stringify(todoList));
 }
 
 addTaskButtonElement.onclick = function() {
@@ -71,7 +31,8 @@ addTaskButtonElement.onclick = function() {
 
     let newTodo = {
       text: userInputTask,
-      id: todoList.length + 1
+      id: crypto.randomUUID(),
+      completed: false
     }
 
     todoList.push(newTodo);
@@ -81,15 +42,101 @@ addTaskButtonElement.onclick = function() {
 
 }
 
+deleteTask = function(todoId){
+    let delIndex = todoList.findIndex(function(eachTodo){
+      if(eachTodo.id === todoId){
+        return true;
+      }else{
+        return false;
+      }
+    })
+  
+    todoList.splice(delIndex, 1);
+}
+
+onComleteTask = function(todoId){
+  
+  let taskIndex = todoList.findIndex(function(eachTodo){
+    if(todoId === eachTodo.id){
+      return true;
+    }else{
+      return false;
+    }
+  })
+  let taskObject = todoList[taskIndex];
+  if(taskObject.completed === true){
+    taskObject.completed = false;
+  }else{
+    taskObject.completed = true;
+  }
+}
+
 function closeAlert(){
   document.getElementById("customAlert").style.display = "none";
 }
 
-saveTasksButtonElement.onclick = function() {
-  localStorage.setItem("todos", JSON.stringify(todoList));
-}
 
-//console.log(storedTodos);
+
+let createNewTask = function(todo){
+    let taskElement = document.createElement('li');
+    let checkboxId= "checkbox-" + todo.id;
+    let taskElementId = "task-" + todo.id;
+    let inputTaskCardId = "input-task-card-" + todo.id;
+
+    let taskContainer = document.createElement('div');
+    taskContainer.classList.add("d-flex", "flex-row", "align-items-center", "mb-2");
+    taskElement.appendChild(taskContainer);
+
+    let checkboxInput = document.createElement('input');
+    checkboxInput.type = 'checkbox'; 
+    checkboxInput.classList.add("checkbox-input");
+    checkboxInput.id = checkboxId;
+    checkboxInput.checked = todo.completed;
+    taskContainer.appendChild(checkboxInput);
+
+    let inputTaskCard = document.createElement('div');
+    inputTaskCard.id = inputTaskCardId; 
+    inputTaskCard.classList.add("input-task-card", "d-flex", "flex-row");
+    if(checkboxInput.checked === true){
+      inputTaskCard.classList.add("checked-container");
+    }else{
+      inputTaskCard.classList.remove("checked-container");
+    }
+    taskContainer.appendChild(inputTaskCard);
+
+    let taskName = document.createElement('label');
+    taskName.id = taskElementId;
+    taskName.setAttribute('for',checkboxId); 
+    taskName.classList.add("task-name");
+    if(checkboxInput.checked === true){
+        taskName.classList.add("checked");
+      }else{
+        taskName.classList.remove("checked");
+    }
+    taskName.textContent = todo.text;
+    inputTaskCard.appendChild(taskName);
+
+    checkboxInput.onclick = function() {
+      taskName.classList.toggle("checked", checkboxInput.checked);
+      inputTaskCard.classList.toggle("checked-container", checkboxInput.checked);
+    onComleteTask(todo.id);
+    };
+
+    let delIconContainer = document.createElement('div');
+    delIconContainer.classList.add("del-icon-container", "ml-auto");
+    let delIcon = document.createElement('i');
+    delIcon.classList.add("fa-solid", "fa-circle-minus", "del-icon");   
+    delIconContainer.appendChild(delIcon);
+    inputTaskCard.appendChild(delIconContainer);
+
+    delIconContainer.onclick = function() {
+      tasksContainerElement.removeChild(taskElement);
+        deleteTask(todo.id);
+    }
+
+    tasksContainerElement.appendChild(taskElement);
+
+}
 
 for (todo of todoList) {
     createNewTask(todo);
