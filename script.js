@@ -2,20 +2,24 @@ let tasksContainerElement = document.getElementById('tasksListContainer');
 let userInputTaskElement = document.getElementById("userInputTask");
 let addTaskButtonElement = document.getElementById('addTaskButton');
 let saveTasksButtonElement = document.getElementById('saveTasksButton');
+let clearTasksButtonElement = document.getElementById('clearTasksButton');
 
 function getLocalStorageTodos(){
   let todoList = JSON.parse(localStorage.getItem("todos"));
-  if (todoList === null){
-    saveTasksButtonElement.style.display = "none";
+    if (todoList === null){
     return [];
     
   }else{
-    saveTasksButtonElement.style.display = "block";
     return todoList;
   }
 }
 
 let todoList = getLocalStorageTodos();
+
+clearTasksButtonElement.onclick = function() {
+  tasksContainerElement.innerHTML = "";
+  todoList = [];
+}
 
 saveTasksButtonElement.onclick = function() {
   localStorage.setItem("todos", JSON.stringify(todoList));
@@ -24,17 +28,32 @@ saveTasksButtonElement.onclick = function() {
 addTaskButtonElement.onclick = function() {
     let userInputTask = userInputTaskElement.value.trim();
 
-    if(userInputTask === ""){
+    if(userInputTask ===  ""){
+      let alertMessageElement = document.getElementById("alertMessage");
+        alertMessageElement.textContent = "Input Task cannot be EMPTY!";
       document.getElementById("customAlert").style.display = "flex";
       return;
     }
+    let isPresent = false;
+    todoList.forEach(task => {
+      if(userInputTask === task.text){
+        isPresent = true;
+      }
+    })
+    if(isPresent === true){
+      let alertMessageElement = document.getElementById("alertMessage");
+        alertMessageElement.textContent = "Task already exists!";
+        document.getElementById("customAlert").style.display = "flex";
+        return;
+    }
+
 
     let newTodo = {
       text: userInputTask,
-      id: crypto.randomUUID(),
+      id: Math.ceil(Math.random()*1000),
       completed: false
     }
-
+    
     todoList.push(newTodo);
     createNewTask(newTodo);
     userInputTaskElement.value = ""; 
@@ -73,9 +92,8 @@ onComleteTask = function(todoId){
 
 function closeAlert(){
   document.getElementById("customAlert").style.display = "none";
+  userInputTaskElement.value = "";
 }
-
-
 
 let createNewTask = function(todo){
     let taskElement = document.createElement('li');

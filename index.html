@@ -17,8 +17,8 @@
         <div class="input-container">
             <h1 class="heading">Create <span class="span-elements">Task</span></h1>
             <input class="input-task" id="userInputTask" placeholder="Enter your task..." />
-            <div class="d-flex">
-                <button class="add-task-button" id="addTaskButton">Add</button>
+            <div class="d-flex flex-row justify-content-end">
+                <button class="button" id="addTaskButton">Add</button>
             </div>
             
         </div>
@@ -27,8 +27,9 @@
             <ul id="tasksListContainer">
 
             </ul>
-            <div class="d-flex">
-                <button class="add-task-button" id="saveTasksButton">Save</button>
+            <div class="d-flex flex-row justify-content-end">
+                <button class="button" id="clearTasksButton">Clear</button>
+                <button class="button ml-2" id="saveTasksButton">Save</button>
             </div>
             
         </div>
@@ -36,7 +37,7 @@
     <div class="overlay" id="customAlert">
     <div class="popup">
       <h1>Warning</h1>
-      <p id="alertMessage">Input Task cannot be EMPTY!</p>
+      <p id="alertMessage"></p>
       <button onclick="closeAlert()">OK</button>
     </div>
   </div>
