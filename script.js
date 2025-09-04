@@ -61,6 +61,28 @@ addTaskButtonElement.onclick = function() {
 
 }
 
+moveUp = function(todo){
+  let taskIndex = todoList.findIndex(function(eachTodo){
+    if(todo.id === eachTodo.id){
+      return true;
+    }
+  })
+  let temp = todoList[taskIndex - 1];
+  todoList[taskIndex - 1] = todoList[taskIndex];
+  todoList[taskIndex] = temp;
+}
+
+moveDown = function(todo){
+  let taskIndex = todoList.findIndex(function(eachTodo){
+    if(todo.id === eachTodo.id){
+      return true;
+    }
+  })
+  let temp = todoList[taskIndex + 1];
+  todoList[taskIndex + 1] = todoList[taskIndex];
+  todoList[taskIndex] = temp;
+}
+
 deleteTask = function(todoId){
     let delIndex = todoList.findIndex(function(eachTodo){
       if(eachTodo.id === todoId){
@@ -140,14 +162,37 @@ let createNewTask = function(todo){
     onComleteTask(todo.id);
     };
 
-    let delIconContainer = document.createElement('div');
-    delIconContainer.classList.add("del-icon-container", "ml-auto");
+    let iconsContainer = document.createElement('div');
+    iconsContainer.classList.add("icons-container", "ml-auto");
+    let upArrowIcon = document.createElement("i");
+    upArrowIcon.classList.add("fa-solid", "fa-circle-up", "icon", "up");
+    iconsContainer.appendChild(upArrowIcon);
+    let downArrowIcon = document.createElement('i');
+    downArrowIcon.classList.add("fa-solid", "fa-circle-down", "icon", "down");
+    iconsContainer.appendChild(downArrowIcon);
     let delIcon = document.createElement('i');
-    delIcon.classList.add("fa-solid", "fa-circle-minus", "del-icon");   
-    delIconContainer.appendChild(delIcon);
-    inputTaskCard.appendChild(delIconContainer);
+    delIcon.classList.add("fa-solid", "fa-circle-minus", "icon");   
+    iconsContainer.appendChild(delIcon);
+    inputTaskCard.appendChild(iconsContainer);
 
-    delIconContainer.onclick = function() {
+    upArrowIcon.onclick = function(){
+      let prev = taskElement.previousElementSibling;
+      if(prev){
+        tasksContainerElement.insertBefore(taskElement, prev);
+        moveUp(todo);
+      }
+    }
+
+    downArrowIcon.onclick = function(){
+      let next = taskElement.nextElementSibling;
+      if(next){
+        tasksContainerElement.insertBefore(next, taskElement);
+        moveDown(todo);
+      }
+    }
+    
+
+    delIcon.onclick = function() {
       tasksContainerElement.removeChild(taskElement);
         deleteTask(todo.id);
     }
