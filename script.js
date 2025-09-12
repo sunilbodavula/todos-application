@@ -3,6 +3,72 @@ let userInputTaskElement = document.getElementById("userInputTask");
 let addTaskButtonElement = document.getElementById('addTaskButton');
 let saveTasksButtonElement = document.getElementById('saveTasksButton');
 let clearTasksButtonElement = document.getElementById('clearTasksButton');
+let calenderContainerElement = document.getElementById('calenderContainer');
+let calenderLogoElement = document.getElementById('calenderLogo');
+
+calenderLogoElement.onclick = function(){
+  if(calenderContainerElement.style.display === "none"){
+    calenderContainerElement.style.display = "flex";
+  }else{
+    calenderContainerElement.style.display = "none";
+  }
+}
+
+let dailyTodos = [
+  {id : "2025-09-12",
+   todos : localStorage.getItem("todos")
+  },
+  {id :"2025-09-13",
+   todos : localStorage.getItem("todos")
+  },
+  {id : "2025-09-14",
+   todos : localStorage.getItem("todos")
+  },
+  {id : "2025-09-15",
+   todos : localStorage.getItem("todos")
+  },
+  {id : "2025-09-16",
+   todos : localStorage.getItem("todos")
+  },
+  {id : "2025-09-17",
+   todos : localStorage.getItem("todos")
+  },
+  {id : "2025-09-18",
+   todos : localStorage.getItem("todos")
+  },
+  {id :"2025-09-19",
+   todos : localStorage.getItem("todos")
+  },
+  {id : "2025-09-20",
+   todos : localStorage.getItem("todos")
+  },
+  {id : "2025-09-21",
+   todos : localStorage.getItem("todos")
+  },
+  {id : "2025-09-22",
+   todos : localStorage.getItem("todos")
+  },
+  {id : "2025-09-23",
+   todos : localStorage.getItem("todos")
+  },
+  {id : "2025-09-24",
+   todos : localStorage.getItem("todos")
+  },
+]
+
+let createCalender = function(todo){
+  let dateElement = document.createElement("div");
+  let dateTextElement = document.createElement("p");
+  dateTextElement.textContent = todo.id.slice(8, 10);
+  dateTextElement.classList.add("date-text");
+  if(todo.id === new Date().toISOString().split("T")[0]){
+    dateElement.classList.add("today-date-card");
+  }else{
+    dateElement.classList.add("date-card");
+  }
+  dateElement.appendChild(dateTextElement);
+  calenderContainerElement.appendChild(dateElement);
+}
 
 function getLocalStorageTodos(){
   let todoList = JSON.parse(localStorage.getItem("todos"));
@@ -171,7 +237,7 @@ let createNewTask = function(todo){
     downArrowIcon.classList.add("fa-solid", "fa-circle-down", "icon", "down");
     iconsContainer.appendChild(downArrowIcon);
     let delIcon = document.createElement('i');
-    delIcon.classList.add("fa-solid", "fa-circle-minus", "icon");   
+    delIcon.classList.add("fa-solid", "fa-trash", "icon");   
     iconsContainer.appendChild(delIcon);
     inputTaskCard.appendChild(iconsContainer);
 
@@ -203,4 +269,8 @@ let createNewTask = function(todo){
 
 for (todo of todoList) {
     createNewTask(todo);
+}
+
+for (todo of dailyTodos) {
+  createCalender(todo);
 }

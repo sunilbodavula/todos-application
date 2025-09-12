@@ -11,16 +11,21 @@
 </head>
 <body>
     <div class="heading-container">
-        <h1 class="todos-heading">Todos</h1>
+        <div class="logo-container">
+            <h1 class="todos-heading">Todos</h1>
+            <i id="calenderLogo" class="fa-solid fa-calendar-days calender-logo"></i>
+        </div>
     </div>
-    <div class="bg-container">
+    <div class="bg-container" id="bgContainer">
+        <div class="calender-container" id="calenderContainer">
+
+        </div>
         <div class="input-container">
             <h1 class="heading">Create <span class="span-elements">Task</span></h1>
             <input class="input-task" id="userInputTask" placeholder="Enter your task..." />
             <div class="d-flex flex-row justify-content-end">
                 <button class="button" id="addTaskButton">Add</button>
             </div>
-            
         </div>
         <div class="tasks-container mt-2">
             <h1 class="heading">My <span class="span-elements">Tasks</span></h1>
