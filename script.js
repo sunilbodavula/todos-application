@@ -6,12 +6,8 @@ let clearTasksButtonElement = document.getElementById('clearTasksButton');
 let calenderContainerElement = document.getElementById('calenderContainer');
 let calenderLogoElement = document.getElementById('calenderLogo');
 
-calenderLogoElement.onclick = function(){
-  if(calenderContainerElement.style.display === "none"){
-    calenderContainerElement.style.display = "flex";
-  }else{
-    calenderContainerElement.style.display = "none";
-  }
+calenderLogoElement.onclick = () => {
+  calenderContainerElement.classList.toggle("calender-display");
 }
 
 let dailyTodos = [
@@ -56,18 +52,68 @@ let dailyTodos = [
   },
 ]
 
+let displayOldTodos = function(todo){
+  let oldTodosContainer = document.getElementById("oldTodosContainer");
+  oldTodosContainer.style.display = "flex";
+  let oldDateHeading = document.createElement("h1")
+  oldDateHeading.classList.add("old-todos-heading");
+  oldDateHeading.textContent = "Date: " + todo.id;
+  let oldTodoListContainer = document.createElement("div");
+  oldTodoListContainer.classList.add("old-todos-list");
+  oldTodoListContainer.appendChild(oldDateHeading);
+  let oldTodoList = JSON.parse(todo.todos);
+  if(oldTodoList === null || oldTodoList.length === 0){
+    let noDataFoundElement = document.createElement("p");
+    noDataFoundElement.classList.add("no-data-found");
+    noDataFoundElement.textContent = "No Data Found";
+    oldTodoListContainer.appendChild(noDataFoundElement);
+  }else {
+    for (let eachOldTodo of oldTodoList){
+    let oldTodoCard = document.createElement("div");
+    oldTodoCard.classList.add("old-todo-card");
+    let oldTodoText = document.createElement("p");
+    oldTodoText.classList.add("old-todo-text");
+    oldTodoText.textContent = eachOldTodo.text;
+    oldTodoCard.appendChild(oldTodoText);
+    let statusIcon = document.createElement("i");
+    statusIcon.classList.add("status-icon",);
+    if(eachOldTodo.completed === true){
+      statusIcon.classList.add("fa-solid", "fa-circle-check");
+      statusIcon.style.color = "#04d763ff";
+      oldTodoCard.appendChild(statusIcon);
+    }else{
+      statusIcon.classList.add("fa-solid", "fa-circle-xmark");
+      statusIcon.style.color = "#f81a1aff";
+      oldTodoCard.appendChild(statusIcon);
+    }
+    oldTodoListContainer.appendChild(oldTodoCard);
+  }
+  }
+  let closeButtonCard = document.createElement("div");
+  closeButtonCard.classList.add("d-flex", "justify-content-end", "mt-3");
+  let closeButton = document.createElement("button");
+  closeButton.classList.add("button");
+  closeButton.textContent = "Close";
+  closeButton.onclick = function(){
+    oldTodosContainer.style.display = "none";
+  }
+  closeButtonCard.appendChild(closeButton);
+  oldTodoListContainer.appendChild(closeButtonCard);
+  oldTodosContainer.innerHTML = "";
+  oldTodosContainer.appendChild(oldTodoListContainer);
+}
+
 let createCalender = function(todo){
   let dateElement = document.createElement("div");
+  dateElement.classList.add("date-card");
   let dateTextElement = document.createElement("p");
   dateTextElement.textContent = todo.id.slice(8, 10);
   dateTextElement.classList.add("date-text");
-  if(todo.id === new Date().toISOString().split("T")[0]){
-    dateElement.classList.add("today-date-card");
-  }else{
-    dateElement.classList.add("date-card");
-  }
   dateElement.appendChild(dateTextElement);
   calenderContainerElement.appendChild(dateElement);
+  dateElement.onclick = function(){
+    displayOldTodos(todo);
+  }
 }
 
 function getLocalStorageTodos(){
