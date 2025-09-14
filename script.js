@@ -19,7 +19,7 @@ let now = new Date();
 function saveTodaysTasks(){
   let todayTasks = localStorage.getItem("todos");
   let todayTasksObject = {
-    id: new Date().toISOString().split("T")[0] +"-"+ now.getHours() +":" + now.getMinutes(),
+    id: new Date().toISOString().split("T")[0],
     todos: todayTasks
   }
   if(dailyTodos.length === 28){
