@@ -10,47 +10,35 @@ calenderLogoElement.onclick = () => {
   calenderContainerElement.classList.toggle("calender-display");
 }
 
-let dailyTodos = [
-  {id : "2025-09-12",
-   todos : localStorage.getItem("todos")
-  },
-  {id :"2025-09-13",
-   todos : localStorage.getItem("todos")
-  },
-  {id : "2025-09-14",
-   todos : localStorage.getItem("todos")
-  },
-  {id : "2025-09-15",
-   todos : localStorage.getItem("todos")
-  },
-  {id : "2025-09-16",
-   todos : localStorage.getItem("todos")
-  },
-  {id : "2025-09-17",
-   todos : localStorage.getItem("todos")
-  },
-  {id : "2025-09-18",
-   todos : localStorage.getItem("todos")
-  },
-  {id :"2025-09-19",
-   todos : localStorage.getItem("todos")
-  },
-  {id : "2025-09-20",
-   todos : localStorage.getItem("todos")
-  },
-  {id : "2025-09-21",
-   todos : localStorage.getItem("todos")
-  },
-  {id : "2025-09-22",
-   todos : localStorage.getItem("todos")
-  },
-  {id : "2025-09-23",
-   todos : localStorage.getItem("todos")
-  },
-  {id : "2025-09-24",
-   todos : localStorage.getItem("todos")
-  },
-]
+let dailyTodos = JSON.parse(localStorage.getItem("dailyTodos"));
+if(dailyTodos === null){
+  dailyTodos = [];
+}
+let now = new Date();
+
+function saveTodaysTasks(){
+  let todayTasks = localStorage.getItem("todos");
+  let todayTasksObject = {
+    id: new Date().toISOString().split("T")[0] +"-"+ now.getHours() +":" + now.getMinutes(),
+    todos: todayTasks
+  }
+  if(dailyTodos.length === 28){
+    dailyTodos.unshift(todayTasksObject);
+    dailyTodos.pop();
+  }else{
+    dailyTodos.unshift(todayTasksObject);
+  }
+  localStorage.setItem("dailyTodos", JSON.stringify(dailyTodos));
+}
+setInterval(() =>{
+  if(now.getHours() === 23 && now.getMinutes() === 55){
+    saveTodaysTasks();
+    tasksContainerElement.innerHTML = "";
+    todoList = [];
+    localStorage.setItem("todos", JSON.stringify(todoList));
+    location.reload();
+  }
+}, 300 * 1000);
 
 let displayOldTodos = function(todo){
   let oldTodosContainer = document.getElementById("oldTodosContainer");
@@ -317,6 +305,13 @@ for (todo of todoList) {
     createNewTask(todo);
 }
 
-for (todo of dailyTodos) {
-  createCalender(todo);
+if(dailyTodos === null || dailyTodos.length === 0){
+  let noDailyTasksElement = document.createElement("p");
+  noDailyTasksElement.classList.add("no-daily-tasks");
+  noDailyTasksElement.textContent = "Your Daily Tasks goes here...";
+  calenderContainerElement.appendChild(noDailyTasksElement);
+}else{
+  for (todo of dailyTodos) {
+   createCalender(todo);
+ }
 }
