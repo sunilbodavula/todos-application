@@ -31,14 +31,14 @@ function saveTodaysTasks(){
   localStorage.setItem("dailyTodos", JSON.stringify(dailyTodos));
 }
 setInterval(() =>{
-  if(now.getHours() === 23 && now.getMinutes() === 55){
+  if(now.getHours() === 7 && now.getMinutes() === 0){
     saveTodaysTasks();
     tasksContainerElement.innerHTML = "";
     todoList = [];
     localStorage.setItem("todos", JSON.stringify(todoList));
     location.reload();
   }
-}, 300 * 1000);
+}, 60 * 1000);
 
 let displayOldTodos = function(todo){
   let oldTodosContainer = document.getElementById("oldTodosContainer");
