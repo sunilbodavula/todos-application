@@ -30,7 +30,8 @@ function saveTodaysTasks(){
   localStorage.setItem("dailyTodos", JSON.stringify(dailyTodos));
 }
 setInterval(() =>{
-  if(new Date().getHours() === 7 && new Date().getMinutes() === 30){
+  let now = new Date();
+  if(now.getHours() === 7 && now.getMinutes() === 45){
     saveTodaysTasks();
     tasksContainerElement.innerHTML = "";
     todoList = [];
