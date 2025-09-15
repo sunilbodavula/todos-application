@@ -14,7 +14,6 @@ let dailyTodos = JSON.parse(localStorage.getItem("dailyTodos"));
 if(dailyTodos === null){
   dailyTodos = [];
 }
-let now = new Date();
 
 function saveTodaysTasks(){
   let todayTasks = localStorage.getItem("todos");
@@ -31,7 +30,7 @@ function saveTodaysTasks(){
   localStorage.setItem("dailyTodos", JSON.stringify(dailyTodos));
 }
 setInterval(() =>{
-  if(now.getHours() === 7 && now.getMinutes() === 0){
+  if(new Date().getHours() === 7 && new Date().getMinutes() === 30){
     saveTodaysTasks();
     tasksContainerElement.innerHTML = "";
     todoList = [];
@@ -39,6 +38,8 @@ setInterval(() =>{
     location.reload();
   }
 }, 60 * 1000);
+
+
 
 let displayOldTodos = function(todo){
   let oldTodosContainer = document.getElementById("oldTodosContainer");
