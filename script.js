@@ -10,7 +10,20 @@ calenderLogoElement.onclick = () => {
   calenderContainerElement.classList.toggle("calender-display");
 }
 
+let resetDate = localStorage.getItem("resetDate");
+
 let dailyTodos = JSON.parse(localStorage.getItem("dailyTodos"));
+function getLocalStorageTodos(){
+  let todoList = JSON.parse(localStorage.getItem("todos"));
+    if (todoList === null){
+    return [];
+    
+  }else{
+    return todoList;
+  }
+}
+
+let todoList = getLocalStorageTodos();
 if(dailyTodos === null){
   dailyTodos = [];
 }
@@ -29,18 +42,16 @@ function saveTodaysTasks(){
   }
   localStorage.setItem("dailyTodos", JSON.stringify(dailyTodos));
 }
-setInterval(() =>{
-  let now = new Date();
-  if(now.getHours() === 18 && now.getMinutes() === 59 && now.getSeconds() === 59){
-    saveTodaysTasks();
-    tasksContainerElement.innerHTML = "";
-    todoList = [];
-    localStorage.setItem("todos", JSON.stringify(todoList));
-    location.reload();
-  }
-}, 1000);
 
-
+let today = new Date().toISOString().split("T")[0];
+if(resetDate !== today){
+  saveTodaysTasks();
+  tasksContainerElement.innerHTML = "";
+  todoList = [];
+  localStorage.setItem("todos", JSON.stringify(todoList));
+  localStorage.setItem("resetDate", today);
+  location.reload();
+};
 
 let displayOldTodos = function(todo){
   let oldTodosContainer = document.getElementById("oldTodosContainer");
@@ -105,18 +116,6 @@ let createCalender = function(todo){
     displayOldTodos(todo);
   }
 }
-
-function getLocalStorageTodos(){
-  let todoList = JSON.parse(localStorage.getItem("todos"));
-    if (todoList === null){
-    return [];
-    
-  }else{
-    return todoList;
-  }
-}
-
-let todoList = getLocalStorageTodos();
 
 clearTasksButtonElement.onclick = function() {
   tasksContainerElement.innerHTML = "";
