@@ -31,7 +31,7 @@ if(dailyTodos === null){
 function saveTodaysTasks(){
   let todayTasks = localStorage.getItem("todos");
   let todayTasksObject = {
-    id: new Date().toISOString().split("T")[0],
+    id: resetDate,
     todos: todayTasks
   }
   if(dailyTodos.length === 28){
@@ -44,7 +44,7 @@ function saveTodaysTasks(){
 }
 
 let today = new Date().toISOString().split("T")[0];
-if(resetDate !== today){
+if(resetDate !== null && resetDate !== today){
   saveTodaysTasks();
   tasksContainerElement.innerHTML = "";
   todoList = [];
