@@ -11,6 +11,11 @@ calenderLogoElement.onclick = () => {
 }
 
 let resetDate = localStorage.getItem("resetDate");
+if(resetDate === null){
+  let today = new Date().toISOString().split("T")[0];
+  localStorage.setItem("resetDate", today);
+  resetDate = today;
+}
 
 let dailyTodos = JSON.parse(localStorage.getItem("dailyTodos"));
 function getLocalStorageTodos(){
